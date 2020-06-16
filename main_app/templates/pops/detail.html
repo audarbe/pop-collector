@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>{{ pop.name }}</h1>
+
+<div class="card">
+    <div class="card-content">
+        <p>Breed: {{ pop.serial }}</p>
+        <p>Description: {{ pop.details }}</p>
+        <p>Category: {{ pop.category}}</p>
+        <p>Price: {{ pop.price}}</p>
+    </div>
+</div>
+
+{% endblock %}

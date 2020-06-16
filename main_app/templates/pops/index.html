@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Pop List</h1>
+
+{% for pop in pops %}
+<div class="card">
+    <a href="{% url 'detail' pop.id %}">
+        <div class="card-content">
+            <span class="card-title">{{ pop.name }}</span>
+            <p>Breed: {{ pop.serial }}</p>
+            <p>Description: {{ pop.details }}</p>
+            <p>Category: {{ pop.category}}</p>
+            <p>Price: {{ pop.price}}</p>
+        </div>
+    </a>
+</div>
+{% endfor %}
+
+{% endblock %}
