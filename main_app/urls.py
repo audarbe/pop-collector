@@ -7,4 +7,5 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('pops/', views.PopList.as_view(), name='pops_index'),
     path('pops/<int:pk>/', views.PopDetail.as_view(), name='pops_detail'),
+    path('pops/create/', views.PopCreate.as_view(), name='pops_create'),
 ]
