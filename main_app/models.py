@@ -13,4 +13,4 @@ class Pop(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('pops_detail', kwargs={'pop_id': self.id})
+        return reverse('pops_detail', kwargs={'pk': self.id})

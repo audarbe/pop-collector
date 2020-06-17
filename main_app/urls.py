@@ -8,4 +8,6 @@ urlpatterns = [
     path('pops/', views.PopList.as_view(), name='pops_index'),
     path('pops/<int:pk>/', views.PopDetail.as_view(), name='pops_detail'),
     path('pops/create/', views.PopCreate.as_view(), name='pops_create'),
+    path('pops/<int:pk>/update/', views.PopUpdate.as_view(), name='pops_update'),
+    path('pops/<int:pk>/delete/', views.PopDelete.as_view(), name='pops_delete'),
 ]

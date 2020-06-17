@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Pop
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 # Create your views here.
 def home(request):
@@ -20,4 +20,12 @@ class PopDetail(DetailView):
 class PopCreate(CreateView):
     model = Pop
     fields = '__all__'
+    success_url = '/pops/'
+
+class PopUpdate(UpdateView):
+    model = Pop
+    fields = ['serial', 'details', 'category', 'price']
+
+class PopDelete(DeleteView):
+    model = Pop
     success_url = '/pops/'
