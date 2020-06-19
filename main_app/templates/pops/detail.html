@@ -3,17 +3,91 @@
 
 <h1>{{ pop.name }}</h1>
 
-<div class="card">
-    <div class="card-content">
-        <p>Breed: {{ pop.serial }}</p>
-        <p>Description: {{ pop.details }}</p>
-        <p>Category: {{ pop.category}}</p>
-        <p>Price: {{ pop.price}}</p>
+<div class="row">
+    <div class="col s7">
+        <div class="card">
+            <div class="card-content">
+                <p>Breed: {{ pop.serial }}</p>
+                <p>Description: {{ pop.details }}</p>
+                <p>category: {{ pop.category }}</p>
+                <p>Price: {{ pop.price}}</p>
+            </div>
+            <div class="card-action">
+                <a href="{% url 'pops_update' pop.id %}">Edit</a>
+                <a href="{% url 'pops_delete' pop.id %}">Delete</a>
+            </div>
+        </div>
     </div>
-    <div class="card-action">
-        <a href="{% url 'pops_update' pop.id %}">Edit</a>
-        <a href="{% url 'pops_delete' pop.id %}">Delete</a>
+    <div class="col s5">
+        <form action="{% url 'add_limited' pop.id %}" method="post">
+            {% csrf_token %}
+            {{ limited_form.as_p }}
+            <input type="submit" class="btn" value="Add Limited Edition">
+          </form>
+        <table class="striped">
+          <thead>
+            <tr><th>Variant Type</th><th>Name</th></tr>
+          </thead>
+          <tbody>
+            {% for limited in pop.limited_set.all %}
+              <tr>
+                <td>{{limited.get_typeOfVariant_display}}</td>
+                <td>{{limited.name}}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
 </div>
+<hr>
+<div class="row">
+  <div class="col s6">
+    <h3>{{ pop.name }} Accessories</h3>
+    {% if pop.accessories.count %}
+      {% for pop in pop.accessories.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+              A {{ pop.color }} {{ pop.name }}
+            </span>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>No Accessoires :(</h5>
+    {% endif %}
+  </div>
+  <div class="col s6">
+    <h3>Available Accesssories</h3>
+    {% if accessories.count %}
+      {% for accessory in accessories.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+              A {{ accessory.color }} {{ accessory.name }}
+            </span>
+          </div>
+          <div class="card-action">
+            <form action="{% url 'assoc_accessory' pop.id accessory.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn">Add</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>{{pop.name}} Already Has All Accessories Available</h5>
+    {% endif %}
+  </div>
 
+  </div>
+
+
+<script>
+  var selectEl = document.getElementById('id_typeOfVariant');
+  M.FormSelect.init(selectEl);
+
+  var selectAccessoryEl = document.getElementById('id_accessories');
+  M.FormSelect.init(selectAccessoryEl);
+</script>
 {% endblock %}
